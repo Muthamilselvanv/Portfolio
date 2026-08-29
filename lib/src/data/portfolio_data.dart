@@ -11,9 +11,9 @@ abstract final class PortfolioData {
 
   static const email = 'muthamilselvan251@gmail.com';
 
-  static const linkedIn = 'https://www.linkedin.com/in/muthamilselvan251/';
+  static const linkedIn = 'https://www.linkedin.com/in/muthamilselvanv/';
 
-  static const github = 'https://github.com/Muthamilselvan251';
+  static const github = 'https://github.com/Muthamilselvanv';
 
   static const resumeAsset = 'assets/resume/Muthamilselvan_V_Resume.pdf';
 
