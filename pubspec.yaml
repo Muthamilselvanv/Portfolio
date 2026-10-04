@@ -62,8 +62,7 @@ flutter:
   assets:
     - assets/resume/Muthamilselvan_V_Resume.pdf
     - assets/projects/
-    - assets/profile/dp.jpeg
-    - assets/profile/muthu.jpeg
+    - assets/profile/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

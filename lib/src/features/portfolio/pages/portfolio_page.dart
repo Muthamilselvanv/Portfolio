@@ -54,8 +54,8 @@ class PortfolioPage extends GetView<PortfolioController> {
                 Obx(
                   () => IconButton(
                     tooltip: controller.isDarkMode.value
-                        ? 'Switch to light theme'
-                        : 'Switch to dark theme',
+                        ? 'Use light theme'
+                        : 'Use dark theme',
                     onPressed: controller.toggleTheme,
                     icon: AnimatedSwitcher(
                       duration: const Duration(milliseconds: 220),
@@ -156,7 +156,7 @@ class _Logo extends StatelessWidget {
         ),
         clipBehavior: Clip.antiAlias,
         child: Image.asset(
-          'assets/profile/muthu.jpeg',
+          'assets/profile/dp.jpeg',
           fit: BoxFit.cover,
           alignment: const Alignment(0, -0.35),
         ),
@@ -274,9 +274,9 @@ class _HeroSection extends GetView<PortfolioController> {
           child: Text.rich(
             TextSpan(
               children: [
-                const TextSpan(text: 'MUTHAMILSELVAN\n'),
+                const TextSpan(text: 'I BUILD\nMOBILE EXPERIENCES\n'),
                 TextSpan(
-                  text: 'BUILDS MOBILE\nPRODUCTS.',
+                  text: 'WITH FLUTTER.',
                   style: TextStyle(
                     color: Theme.of(context).colorScheme.primary,
                   ),
@@ -306,7 +306,7 @@ class _HeroSection extends GetView<PortfolioController> {
           child: ConstrainedBox(
             constraints: const BoxConstraints(maxWidth: 680),
             child: Text(
-              PortfolioData.valueStatement,
+              PortfolioData.bio,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
           ),
@@ -320,8 +320,8 @@ class _HeroSection extends GetView<PortfolioController> {
             children: [
               FilledButton.icon(
                 onPressed: () => controller.scrollTo(4),
-                icon: const Icon(Icons.arrow_forward),
-                label: const Text('View Projects'),
+                icon: const Icon(Icons.arrow_downward),
+                label: const Text('Explore My Work'),
               ),
               OutlinedButton.icon(
                 onPressed: controller.downloadResume,
@@ -362,13 +362,6 @@ class _HeroSection extends GetView<PortfolioController> {
                 tooltip: 'Email Muthamilselvan V',
                 onPressed: controller.openEmail,
                 icon: const Icon(Icons.mail_outline),
-              ),
-              const SizedBox(width: 8),
-              Flexible(
-                child: Text(
-                  PortfolioData.location,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
               ),
             ],
           ),
@@ -498,35 +491,22 @@ class _HeroVisualState extends State<_HeroVisual>
               ),
               child: child,
             ),
+            child: const Align(
+              alignment: Alignment(.48, .05),
+              child: AppPhoneMockup(
+                screenshotAsset: 'assets/projects/nilora-home.png',
+                rotation: .035,
+              ),
+            ),
+          ),
+          const Align(
+            alignment: Alignment(-.62, .32),
             child: FractionallySizedBox(
-              widthFactor: .72,
-              heightFactor: .82,
-              child: Container(
-                padding: const EdgeInsets.all(5),
-                decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [AppColors.primary, AppColors.secondary],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  borderRadius: BorderRadius.circular(42),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.primary.withValues(alpha: .22),
-                      blurRadius: 42,
-                      offset: const Offset(0, 18),
-                    ),
-                  ],
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(37),
-                  child: Image.asset(
-                    'assets/profile/muthu.jpeg',
-                    semanticLabel: 'Portrait of Muthamilselvan V',
-                    fit: BoxFit.cover,
-                    alignment: const Alignment(0, -.12),
-                  ),
-                ),
+              widthFactor: .48,
+              child: AppPhoneMockup(
+                screenshotAsset: 'assets/projects/nilora-login.png',
+                rotation: -.07,
+                compact: true,
               ),
             ),
           ),
@@ -534,8 +514,8 @@ class _HeroVisualState extends State<_HeroVisual>
             right: 3,
             bottom: 55,
             child: _FloatingLabel(
-              icon: Icons.hub_outlined,
-              text: 'APIs & Firebase',
+              icon: Icons.auto_graph,
+              text: 'Responsive UI',
             ),
           ),
           Positioned(
@@ -654,8 +634,6 @@ class _AboutSection extends StatelessWidget {
             },
           ),
           const SizedBox(height: 42),
-          const _ProofStrip(),
-          const SizedBox(height: 42),
           LayoutBuilder(
             builder: (_, c) => Wrap(
               spacing: 18,
@@ -699,59 +677,6 @@ class _AboutSection extends StatelessWidget {
   );
 }
 
-class _ProofStrip extends StatelessWidget {
-  const _ProofStrip();
-
-  @override
-  Widget build(BuildContext context) {
-    const items = [
-      ('1.5+ years', 'Hands-on Flutter'),
-      ('3 products', 'Built & maintained'),
-      ('Production', 'Payments & video'),
-      ('REST + Firebase', 'Backend integration'),
-    ];
-    return LayoutBuilder(
-      builder: (_, constraints) {
-        final columns = constraints.maxWidth < 560 ? 2 : 4;
-        const gap = 14.0;
-        final width = (constraints.maxWidth - gap * (columns - 1)) / columns;
-        return Wrap(
-          spacing: gap,
-          runSpacing: gap,
-          children: items
-              .map(
-                (item) => Container(
-                  width: width,
-                  padding: const EdgeInsets.all(18),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
-                    borderRadius: BorderRadius.circular(18),
-                    border: Border.all(
-                      color: Theme.of(context).colorScheme.outlineVariant,
-                    ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        item.$1,
-                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(item.$2),
-                    ],
-                  ),
-                ),
-              )
-              .toList(),
-        );
-      },
-    );
-  }
-}
-
 class _FocusItem extends StatelessWidget {
   const _FocusItem({
     required this.title,
@@ -792,43 +717,16 @@ class _SkillsSection extends StatelessWidget {
       child: SectionShell(
         number: '02',
         eyebrow: 'Skills',
-        title: 'A practical mobile engineering toolkit',
+        title: 'What I work with',
         description:
             'A practical toolkit shaped by production features, integrations, responsive UI and debugging.',
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            LayoutBuilder(
-              builder: (_, constraints) => Wrap(
-                spacing: 16,
-                runSpacing: 16,
-                children: PortfolioData.skills
-                    .map(
-                      (group) => SizedBox(
-                        width: constraints.maxWidth < 620
-                            ? constraints.maxWidth
-                            : (constraints.maxWidth - 32) / 3,
-                        height: constraints.maxWidth < 620 ? null : 254,
-                        child: SkillGroupCard(group: group),
-                      ),
-                    )
-                    .toList(),
-              ),
-            ),
-            const SizedBox(height: 28),
-            Text(
-              'CURRENTLY LEARNING',
-              style: TextStyle(
-                color: Theme.of(context).colorScheme.primary,
-                fontWeight: FontWeight.w900,
-                letterSpacing: 1.2,
-              ),
-            ),
-            const SizedBox(height: 12),
-            TechWrap(PortfolioData.learningSkills),
-            const SizedBox(height: 40),
-            const EngineeringFlowVisual(),
-          ],
+        child: Wrap(
+          spacing: 14,
+          runSpacing: 14,
+          children: PortfolioData.skills
+              .expand((group) => group.skills)
+              .map((skill) => SkillPill(skill))
+              .toList(),
         ),
       ),
     ),

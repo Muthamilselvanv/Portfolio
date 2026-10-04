@@ -7,10 +7,6 @@ abstract final class PortfolioData {
 
   static const role = 'Flutter Mobile App Developer';
 
-  static const valueStatement =
-      'Building dependable mobile products with Flutter, APIs, Firebase, '
-      'and thoughtful engineering workflows.';
-
   static const location = 'Coimbatore, Tamil Nadu, India';
 
   static const email = 'muthamilselvan251@gmail.com';
@@ -48,18 +44,12 @@ abstract final class PortfolioData {
   ];
 
   static const skills = <SkillCategory>[
-    SkillCategory('Mobile Development', Icons.flutter_dash, [
+    SkillCategory('Flutter Development', Icons.flutter_dash, [
       'Flutter',
       'Dart',
+      'GetX',
       'Responsive UI',
       'Material Design',
-    ]),
-
-    SkillCategory('State & Architecture', Icons.account_tree_outlined, [
-      'GetX',
-      'Clean Architecture',
-      'SOLID Principles',
-      'Dependency Injection',
     ]),
 
     SkillCategory('API & Firebase', Icons.hub_outlined, [
@@ -82,7 +72,10 @@ abstract final class PortfolioData {
       'Notifications',
     ]),
 
-    SkillCategory('Engineering Quality', Icons.verified_outlined, [
+    SkillCategory('Development Practices', Icons.architecture_outlined, [
+      'Clean Architecture',
+      'SOLID Principles',
+      'Dependency Injection',
       'Error Handling',
       'Debugging',
     ]),
@@ -94,13 +87,6 @@ abstract final class PortfolioData {
       'Android Studio',
       'Figma',
     ]),
-  ];
-
-  static const learningSkills = <String>[
-    'BLoC',
-    'GitHub Actions or CI/CD',
-    'Python',
-    'AI application development',
   ];
 
   static const experiences = <Experience>[

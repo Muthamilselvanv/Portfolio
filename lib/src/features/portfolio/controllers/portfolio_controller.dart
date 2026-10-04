@@ -24,10 +24,7 @@ class PortfolioController extends GetxController {
   final activeSection = 0.obs;
   final contactStatus = ContactStatus.idle.obs;
   final showBackToTop = false.obs;
-  final isDarkMode =
-      (WidgetsBinding.instance.platformDispatcher.platformBrightness ==
-              Brightness.dark)
-          .obs;
+  final isDarkMode = Get.isDarkMode.obs;
 
   @override
   void onInit() {

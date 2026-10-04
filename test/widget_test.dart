@@ -16,11 +16,11 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
 
     await tester.pumpWidget(const PortfolioApp());
-    await tester.pump(const Duration(milliseconds: 700));
+    await tester.pumpAndSettle();
 
     expect(find.text('Muthamilselvan V'), findsWidgets);
     expect(find.text('Flutter Mobile App Developer'), findsWidgets);
-    expect(find.text('View Projects'), findsOneWidget);
+    expect(find.text('Explore My Work'), findsOneWidget);
     expect(find.byIcon(Icons.dark_mode_outlined), findsOneWidget);
   });
 
@@ -31,7 +31,7 @@ void main() {
     addTearDown(tester.view.resetDevicePixelRatio);
 
     await tester.pumpWidget(const PortfolioApp());
-    await tester.pump(const Duration(milliseconds: 700));
+    await tester.pumpAndSettle();
 
     final scaffold = tester.widget<Scaffold>(find.byType(Scaffold).first);
     expect(scaffold.drawer, isNotNull);
