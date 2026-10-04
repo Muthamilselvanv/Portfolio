@@ -54,6 +54,8 @@ class ProjectDetailsPage extends GetView<PortfolioController> {
                   ),
                   _DetailBlock('Problem', [project.problem]),
                   _DetailBlock('My role', [project.role]),
+                  const SizedBox(height: 30),
+                  const EngineeringFlowVisual(),
                   _DetailBlock('Main features', project.features),
                   const SizedBox(height: 20),
                   TechWrap(project.technologies),

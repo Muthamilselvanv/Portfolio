@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio/src/app/theme/portfolio_theme.dart';
+import 'package:portfolio/src/data/models/portfolio_models.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 class SectionShell extends StatelessWidget {
@@ -397,6 +398,117 @@ class SkillPill extends StatefulWidget {
   final String label;
   @override
   State<SkillPill> createState() => _SkillPillState();
+}
+
+class SkillGroupCard extends StatelessWidget {
+  const SkillGroupCard({super.key, required this.group});
+  final SkillCategory group;
+
+  @override
+  Widget build(BuildContext context) => HoverCard(
+    child: Padding(
+      padding: const EdgeInsets.all(22),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(group.icon, color: Theme.of(context).colorScheme.primary),
+          const SizedBox(height: 14),
+          Text(group.title, style: Theme.of(context).textTheme.titleLarge),
+          const SizedBox(height: 14),
+          TechWrap(group.skills),
+        ],
+      ),
+    ),
+  );
+}
+
+class EngineeringFlowVisual extends StatelessWidget {
+  const EngineeringFlowVisual({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    const nodes = [
+      ('Flutter UI', Icons.phone_android),
+      ('GetX State', Icons.account_tree_outlined),
+      ('Repository', Icons.inventory_2_outlined),
+      ('API / Firebase / SQLite', Icons.cloud_outlined),
+    ];
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(24),
+      decoration: BoxDecoration(
+        color: Theme.of(context).colorScheme.surface,
+        borderRadius: BorderRadius.circular(26),
+        border: Border.all(color: Theme.of(context).colorScheme.outlineVariant),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'HOW I STRUCTURE A FEATURE',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+              fontWeight: FontWeight.w900,
+              letterSpacing: 1.2,
+            ),
+          ),
+          const SizedBox(height: 20),
+          LayoutBuilder(
+            builder: (_, constraints) {
+              final vertical = constraints.maxWidth < 720;
+              final children = <Widget>[];
+              for (var i = 0; i < nodes.length; i++) {
+                final node = nodes[i];
+                final nodeCard = Container(
+                  width: double.infinity,
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    color: Theme.of(
+                      context,
+                    ).colorScheme.primary.withValues(alpha: .07),
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Row(
+                    children: [
+                      Icon(
+                        node.$2,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: Text(
+                          node.$1,
+                          style: const TextStyle(fontWeight: FontWeight.w800),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+                children.add(vertical ? nodeCard : Expanded(child: nodeCard));
+                if (i < nodes.length - 1) {
+                  children.add(
+                    Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: Icon(
+                        vertical ? Icons.arrow_downward : Icons.arrow_forward,
+                        size: 18,
+                      ),
+                    ),
+                  );
+                }
+              }
+              return vertical
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: children,
+                    )
+                  : Row(children: children);
+            },
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class _SkillPillState extends State<SkillPill> {
