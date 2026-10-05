@@ -34,13 +34,24 @@ flutter pub get
 flutter run -d chrome
 flutter analyze
 flutter test
-flutter build web --release
+flutter build web --release --pwa-strategy=none
 ```
 
 ## Deploy
 
-- Firebase Hosting: build with `flutter build web --release`, initialize Hosting,
-  choose `build/web` as the public directory, then deploy.
+- Firebase Hosting: this portfolio intentionally disables Flutter's generated
+  service worker so visitors always receive the newest deployment. Build and
+  deploy from the project root with:
+
+  ```sh
+  flutter pub get
+  flutter build web --release --pwa-strategy=none
+  firebase deploy --only hosting --project muthamilselvan-portfolio
+  ```
+
+  Keep `build/web` as the public directory. Do not use the standard
+  `flutter build web --release` command for Firebase releases, because it can
+  recreate the old PWA cache and make a successful deployment look unchanged.
 - Netlify/Vercel: publish `build/web`; configure the build command as
   `flutter build web --release` where Flutter is available.
 - GitHub Pages: build with the repository base path, for example
