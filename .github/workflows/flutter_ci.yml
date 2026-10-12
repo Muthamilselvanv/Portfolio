@@ -11,7 +11,7 @@ on:
 
 jobs:
     test:
-        name: Analyze Dart and Flutter code
+        name: Test and Analyze Dart and Flutter code
         runs-on: ubuntu-latest
         timeout-minutes: 15
 
