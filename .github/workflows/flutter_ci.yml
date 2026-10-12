@@ -5,14 +5,46 @@ on:
     branches:
         - main
         - portfolio-CI/CD
-        
+
   pull_request:
     branches:
         - main
         - portfolio-CI/CD
 
+  workflow_dispatch:
+
+permissions:
+    contents: read
+
+concurrency:
+  group: flutter-ci-${{github.workflow}}-${{github.event.pull_request.number || github.ref}}
+  cancel-in-progress: true
+
 jobs:
-    test:
+
+    format:
+      name: Check formatting
+      runs-on: ubuntu-latest
+      timeout-minutes: 15
+
+      steps:
+        - name: Checkout source code
+          uses: actions/checkout@v4
+
+        - name: Setup Flutter
+          uses: subosito/flutter-action@v2
+          with:
+            flutter-version: '3.47.5'
+            channel: stable
+            cache: true
+
+        - name: Install dependencies
+          run: flutter pub get
+
+        - name: Check code formatting
+          run: dart format --output=none --set-exit-if-changed lib test
+
+    analyze-and-test:
         name: Test and Analyze Dart and Flutter code
         runs-on: ubuntu-latest
         timeout-minutes: 15
@@ -23,12 +55,49 @@ jobs:
 
             - name: Setup Flutter
               uses: subosito/flutter-action@v2
+              with:
+                flutter-version: '3.47.5'
+                channel: stable
+                cache: true
 
             - name: Install dependencies
               run: flutter pub get
-              
+
             - name: Analyze project
               run: flutter analyze
 
             - name: Run test
               run: flutter test
+
+    build:
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+        needs:
+          - format 
+          - analyze-and-test
+
+        runs-on: ubuntu-latest
+        timeout-minutes: 30
+
+        steps:
+            - name: Checkout source code
+              uses: actions/checkout@v4
+
+            - name: Setup Flutter
+              uses: subosito/flutter-action@v2
+              with:
+                flutter-version: '3.47.5'
+                channel: stable
+                cache: true
+
+            - name: Install dependencies
+              run: flutter pub get
+
+            - name: Build release web
+              run: flutter build web --release --pwa-strategy=none
+
+            - name: Upload web artifact
+              uses: actions/upload-artifact@v4
+              with:
+                name: flutter-release-web
+                path: build/web
