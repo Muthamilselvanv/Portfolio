@@ -4,10 +4,12 @@ on:
   push:
     branches:
         - main
+        - portfolio-CI/CD
         
   pull_request:
     branches:
         - main
+        - portfolio-CI/CD
 
 jobs:
     test:
