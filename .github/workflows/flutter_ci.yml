@@ -74,7 +74,7 @@ jobs:
           - analyze-and-test
 
         runs-on: ubuntu-latest
-        timeout-minutes: 30
+        timeout-minutes: 15
 
         steps:
             - name: Checkout source code
@@ -98,3 +98,33 @@ jobs:
               with:
                 name: flutter-release-web
                 path: build/web
+
+    deploy:
+        name: Deploy to Firebase Hosting
+
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+
+        needs:
+          - build
+
+        environment: production
+
+        runs-on: ubuntu-latest
+        timeout-minutes: 15
+
+        steps:
+          - name: Checkout source code
+            uses: actions/checkout@v4
+
+          - name: Download web artifact
+            uses: actions/download-artifact@v4
+            with:
+              name: flutter-release-web
+              path: build/web
+
+          - name: Deploy to Firebase Hosting
+            uses: FirebaseExtended/action-hosting-deploy@v0
+            with:
+              firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MUTHAMILSELVAN_PORTFOLIO }}
+              projectId: muthamilselvan-portfolio
+              channelId: live
